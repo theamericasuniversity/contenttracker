@@ -1,0 +1,25 @@
+﻿@model contenttracker.Models.ContentDocument
+
+@{ 
+    var shortTitle = Model.content.Substring(0, 100) + "...";
+    var longContent = Model.content.Substring(0, 500) + "...";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">@shortTitle</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <h6>Details about this content:</h6>
+    <ul>
+        <li><strong>Content:</strong> @longContent</li>
+        <li><strong>Author:</strong> @Model.metadata_author</li>
+        <li><strong>Document size:</strong> @Model.metadata_storage_size bytes</li>
+        <li><strong>Document type:</strong> @Model.metadata_storage_content_type</li>
+    </ul>
+    <p style="text-align: center;">
+        <button id="contentLink" class="btn btn-success" style="background-color: #1861ac; border-color: #1861ac;">Access this content</button>
+    </p>
+</div>

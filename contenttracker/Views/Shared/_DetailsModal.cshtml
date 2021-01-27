@@ -1,0 +1,22 @@
+﻿@model contenttracker.Models.ActualContent
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">@Model.Content</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <h6>Details about this content:</h6>
+    <ul>
+        <li><strong>Department:</strong> @Model.Department</li>
+        <li><strong>Sanitized Discipline:</strong> @Model.HygienizedDiscipline</li>
+        <li><strong>Discipline Name:</strong> @Model.DisciplineName</li>
+        <li><strong>Discipline Code:</strong> @Model.DisciplineId</li>
+        <li><strong>Unit:</strong> @Model.Unit</li>
+        <li><strong>Competency and Hability:</strong> @Model.CompetencyAbilities</li>
+        <li><strong>Classification:</strong> @Model.Classification</li>
+    </ul>
+    <p style="text-align: center;">
+        <button id="contentLink" class="btn btn-success" style="background-color: #1861ac; border-color: #1861ac;">Access this content</button>
+    </p>
+</div>

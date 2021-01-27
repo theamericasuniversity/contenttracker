@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    @*<img src="~/img/logo-sesi.jpg" width="80" />*@
+                    <h4>AMERICAS UNIVERSITY</h4>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Search 1: Metadata-based</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexVideo">Search 2: Video indexer-based</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexDocument">Search 3: Documents-based</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Digital Content Search - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            $(".modal-link-1").click(function (e) {
+                e.preventDefault();
+
+                $.get($(this).data("targeturl"), function (data) {
+                    $("#modalContent").html(data);
+                    $("#modalDetails").modal("show");
+                });
+            });
+
+            $(".modal-link-2").click(function (e) {
+                e.preventDefault();
+
+                $.get($(this).data("targeturl"), function (data) {
+                    $("#modalContent2").html(data);
+                    $("#modalDetailsVideo").modal("show");
+                });
+            });
+
+            $(".modal-link-3").click(function (e) {
+                e.preventDefault();
+
+                $.get($(this).data("targeturl"), function (data) {
+                    $("#modalContent3").html(data);
+                    $("#modalDetailsDocument").modal("show");
+                });
+            });
+        });
+    </script>  
+    @RenderSection("Scripts", required: false)
+
+    <!-- Modal 1 -->
+    <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetails" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="modalContent">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="modalDetailsVideo" tabindex="-1" role="dialog" aria-labelledby="modalDetailsVideo" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="modalContent2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal fade" id="modalDetailsDocument" tabindex="-1" role="dialog" aria-labelledby="modalDetailsDocument" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="modalContent3">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
