@@ -40,6 +40,6 @@ jobs:
       uses: Azure/webapps-deploy@v2
       with:
         # Name of the Azure Web App
-        app-name: contenttracker-app-2
+        app-name: contenttracker-app
         # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
         package: .\contenttracker-pub
