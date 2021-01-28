@@ -13,17 +13,29 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+      
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
       working-directory: .\contenttracker
+      
     - name: Build
       run: dotnet build --no-restore --configuration Release
+      
     - name: Publish
       run: dotnet publish -c Release -o contenttracker-pub
+      
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Selecting the target Subscription
+      run: az account set -s "fb1ffc74-dba7-4cf6-8aac-d07612837cc7"
+      
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
       with:
