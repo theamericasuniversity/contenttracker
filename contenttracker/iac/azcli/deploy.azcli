@@ -3,16 +3,16 @@ az login
 
 # Select the target subscription
 # az account list -o table
-az account set -s "fb1ffc74-dba7-4cf6-8aac-d07612837cc7"
+az account set -s "{subscription}"
 
 # Create a new resource group
-az group create -n contenttracker -l eastus --tags ProjectName=contenttracker
+az group create -n {resource-group-name} -l eastus --tags {key=value}
 
 # Create an App Service Plan to support the web app
-az appservice plan create -g contenttracker -n contenttracker-plan
+az appservice plan create -g {resource-group-name} -n {service-plan-name}
 
 # Create an new web app to support the application
-az webapp create -g contenttracker -p contenttracker-plan -n contenttracker-app-2
+az webapp create -g {resource-group-name} -p {service-plan-name} -n {web-app-name}
 
 # Creating a service principal for inpersonate usage (by Github actions)
-az ad sp create-for-rbac --name "contenttracker-webapp-sp" --sdk-auth --role contributor --scopes /subscriptions/fb1ffc74-dba7-4cf6-8aac-d07612837cc7/resourceGroups/contenttracker/providers/Microsoft.Web/sites/contenttracker-app
+az ad sp create-for-rbac --name "{sp-name}" --sdk-auth --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/contenttracker/providers/Microsoft.Web/sites/{web-app-name}
