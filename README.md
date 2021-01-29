@@ -6,4 +6,4 @@ By combining the efficiency of Microsoft SQL Databases with Azure Cognitive Sear
 
 ## Solution's components
 
-* [Azure App Service]():
+* [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/): Web App Service in Azure.
