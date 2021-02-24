@@ -27,19 +27,19 @@ jobs:
       run: dotnet build --no-restore --configuration Release
       
     - name: Publish
-      run: dotnet publish -c Release -o contenttracker-pub
+      run: dotnet publish -c Release -o contenttrackerpub
       
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Selecting the target Subscription
-      run: az account set -s "fb1ffc74-dba7-4cf6-8aac-d07612837cc7"
+      run: az account set -s "${{ secrets.SUBSCRIPTION_ID }}"
       
     - name: Azure WebApp
       uses: Azure/webapps-deploy@v2
       with:
         # Name of the Azure Web App
-        app-name: contenttracker-app
+        app-name: contenttrackerapp
         # Applies to Web App only: Path to package or folder. *.zip, *.war, *.jar or a folder to deploy
-        package: .\contenttracker-pub
+        package: .\contenttrackerpub
