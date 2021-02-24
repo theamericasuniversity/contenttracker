@@ -1,18 +1,41 @@
+# Global variables
+$SUBSCRIPTION_ID="your-subscription-id"
+$RG_NAME="your-rg-name"
+$RG_LOCATION="your-rg-location"
+$APP_SERVICE_PLAN="your-app-service-plan-name"
+$WEB_APP_NAME="your-app-name"
+$SP_NAME="your-service-principal-name"
+
 # Login into the subscription
-az login
+# az login
 
 # Select the target subscription
 # az account list -o table
-az account set -s "{subscription}"
+az account set -s $SUBSCRIPTION_ID
 
 # Create a new resource group
-az group create -n {resource-group-name} -l eastus --tags {key=value}
+az group create -n $RG_NAME -l $RG_LOCATION --tags {key=value}
 
 # Create an App Service Plan to support the web app
-az appservice plan create -g {resource-group-name} -n {service-plan-name}
+az appservice plan create -g $RG_NAME -n $APP_SERVICE_PLAN
 
 # Create an new web app to support the application
-az webapp create -g {resource-group-name} -p {service-plan-name} -n {web-app-name}
+az webapp create -g $RG_NAME -p $APP_SERVICE_PLAN -n $WEB_APP_NAME
 
 # Creating a service principal for inpersonate usage (by Github Actions)
-az ad sp create-for-rbac --name "{sp-name}" --sdk-auth --role contributor --scopes /subscriptions/{subscription-id}/resourceGroups/contenttracker/providers/Microsoft.Web/sites/{web-app-name}
+az ad sp create-for-rbac --name "$SP_NAME" --sdk-auth --role contributor --scopes /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RG_NAME/providers/Microsoft.Web/sites/$WEB_APP_NAME
+
+# Update GitHub Secret with SP's returned content
+
+########## Cleaning up resources ##########
+
+# Getting Service Principal Id
+$SP_ID=(az ad sp list --display-name $SP_NAME --query "[].{id:appId}" -o tsv)
+
+# Deleting Service Principal
+az ad sp delete --id $SP_ID
+
+# Deleting resource group
+az group delete -n $RG_NAME --yes
+
+###########################################
